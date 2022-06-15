@@ -85,6 +85,10 @@ function ScopeCircle(radius) {
         },
         set: function(value){ // setter // scopeCircle.radius = x;
             if (value > 0) _radius = value; // can perform validation
-        }
+        },
+        writeable: false, // sets object to read only
+        enumarable: false, // object will not show up when something containing it is iterated through
+        configurable: false // object cannot be deleted
     })
 }
+
