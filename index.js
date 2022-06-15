@@ -53,3 +53,38 @@ new String(); // '',"",'' // string literals // creates new wrapper object aroun
 new Boolean(); // true, false // boolean literals // creates new wrapper object around primitive
 new Number(); // 1,2,3 // integer literals // creates new wrapper object around primitive
 
+const circle = new ConstructorCircle(1)
+
+for (let key in circle) { // loop through all members and get key
+    if (typeof circle[key] != 'function'){ // if member is not a function
+        console.log(circle[key]);
+    }
+}
+
+const keys = Object.keys(circle); // all keys in circle
+
+if ('radius' in circle) { // key "radius" exists within circle object
+    console.log("circle has radius");
+}
+
+function LeakyCircle(radius) {
+    this.radius = radius; // circle.radius = 5; // can bypass setRadius
+    this.setRadius = function(radius){
+        if (radius > 0) this.radius = radius;
+    }
+    this.internalFunction = function () {} // can a
+    this.externalFunction = function(){
+        this.internalFunction();
+    }
+}
+
+function PatchedCircle(radius) {
+    let radius = radius; // let or const = private variable
+    this.setRadius = function(radius){ // externally have to call setRadius
+        if (radius > 0) this.radius = radius;
+    }
+    let internalFunction = function () {} // internalFunction now only accessible internally
+    this.externalFunction = function(){  // externally need to call externalFunction
+        internalFunction(); // private not called with "this"
+    } 
+}
