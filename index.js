@@ -33,4 +33,8 @@ function ConstructorCircle(radius){
 const constructorCircle = new ConstructorCircle(1) // creates an empty object {} then points "this" to it
 constructorCircle.draw();
 
+let x = {}; // js interprets this as "let x = new Object();"
 
+new String(); // '',"",'' // string literals // creates new wrapper object around primitive
+new Boolean(); // true, false // boolean literals // creates new wrapper object around primitive
+new Number(); // 1,2,3 // integer literals // creates new wrapper object around primitive
