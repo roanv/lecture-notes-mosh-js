@@ -79,7 +79,7 @@ function LeakyCircle(radius) {
 }
 
 function PatchedCircle(radius) {
-    let radius = radius; // let or const = private variable
+    let radius = radius; // let or const are private variables
     this.setRadius = function(radius){ // externally have to call setRadius
         if (radius > 0) this.radius = radius;
     }
