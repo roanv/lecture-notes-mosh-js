@@ -92,3 +92,8 @@ function ScopeCircle(radius) {
     })
 }
 
+function Square(){};
+const square = new Square();
+
+Object.getPrototypeOf(square); // parent of circle (Square) ===
+Square.prototype; // Square prototype
