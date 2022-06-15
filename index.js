@@ -67,24 +67,24 @@ if ('radius' in circle) { // key "radius" exists within circle object
     console.log("circle has radius");
 }
 
-function LeakyCircle(radius) {
-    this.radius = radius; // circle.radius = 5; // can bypass setRadius
-    this.setRadius = function(radius){
-        if (radius > 0) this.radius = radius;
+function ScopeCircle(radius) {
+    this.visible = false; // public variable
+    let _radius = radius; // private variable 
+    let radiusValid = (radius) => radius > 0; // private function
+    this.setRadius = function(radius){  // public function
+        if(radiusValid) { // private member not called with "this"
+            _radius = radius;  // private member not called with "this"
+            this.visible = true; // public member called with "this"
+        }
     }
-    this.internalFunction = function () {} // can a
-    this.externalFunction = function(){
-        this.internalFunction();
-    }
-}
 
-function PatchedCircle(radius) {
-    let radius = radius; // let or const are private variables
-    this.setRadius = function(radius){ // externally have to call setRadius
-        if (radius > 0) this.radius = radius;
-    }
-    let internalFunction = function () {} // internalFunction now only accessible internally
-    this.externalFunction = function(){  // externally need to call externalFunction
-        internalFunction(); // private not called with "this"
-    } 
+    // getters and setters - not visible in autocomplete
+    Object.defineProperty(this,'_radius',{ 
+        get: function(){ // readonly getter // scopeCircle.radius
+            return _radius;
+        },
+        set: function(value){ // setter // scopeCircle.radius = x;
+            if (value > 0) _radius = value; // can perform validation
+        }
+    })
 }
