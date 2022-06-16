@@ -132,10 +132,12 @@ square.hasOwnProperty('draw') // false // draw is prototype member
 // PROTOTYPE INHERITANCE
 function Shape (){} // parent object
 function Triangle (){} // child object
-Shape.prototype.log = () => console.log('im a shape!'); // prototype method on parent
+Shape.prototype.log = () => console.log('im a shape!');
 
 // currently Circle's prototype inherits Object prototype
 Triangle.prototype == Object.create(Object.prototype);
+// and constructor on prototype == triangle
+console.log(Triangle.prototype.constructor); // Triangle
 
 // change Circle prototype to inherit from Shape prototype
 Triangle.prototype = Object.create(Shape.prototype); 
@@ -143,3 +145,12 @@ Triangle.prototype = Object.create(Shape.prototype);
 // now triangle inherits from shape
 const triangle = new Triangle();
 triangle.log();
+
+// but now triangle's constructor is also set to shape
+console.log(Triangle.prototype.constructor); // Shape
+// change this back to Triangle constructor
+Triangle.prototype.constructor = Triangle;
+
+// now Triangle is prototype of Shape but uses Triangle constructor
+console.log(Triangle.prototype); // Shape
+console.log(Triangle.prototype.constructor); // Triangle
