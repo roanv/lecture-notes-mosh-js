@@ -376,6 +376,9 @@ class Computer{
     boot(){
         console.log('booting up');
     }
+    shutDown(){
+        console.log('shutting down');
+    }
 }
 
 class Calculator extends Computer { // extends sets prototype and resets constructor
@@ -387,8 +390,14 @@ class Calculator extends Computer { // extends sets prototype and resets constru
     doMath(){
         console.log('calculating pie')
     }
+
+    shutDown(){
+        super.shutDown();
+        console.log('turning off calculator');
+    }
 }
 
 const calc = new Calculator('blue', 5);
 calc.boot(); // computer function
 console.log(calc.color); // computer property
+calc.shutDown();
