@@ -155,12 +155,19 @@ Triangle.prototype.constructor = Triangle; // always do this after changing prot
 console.log(Triangle.prototype); // Shape
 console.log(Triangle.prototype.constructor); // Triangle
 
+
+// Calling super constructor
 function Car (color){
     this.color = color;
 }
 
 function Mazda (speed, color){
-    Shape.call(this,color); // calling super constructor
-    this.size = speed;
+    Car.call(this,color); // calling super constructor
+    this.speed = speed;
 }
-const hexagon = new Mazda(100,'blue');
+
+Mazda.prototype = Object.create(Car.prototype); 
+Mazda.prototype.constructor = Mazda;
+
+const mazda = new Mazda(100,'blue');
+console.log(mazda.color);
