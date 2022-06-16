@@ -239,3 +239,16 @@ goldFish.swim();
 function mixin(target,...sources){ // rest operator turns rest of arguments into array
     Object.assign(target,...sources) // spread operator spreads array into arguments
 }
+
+
+// CLASSES - not real classes -> syntactic sugar over inheritance 
+// essentially cleaner syntax for prototypical inheritance 
+class Beans { // is actually a function
+    constructor(size){
+        this.size = size;
+        this.move = function(){} // instance method
+    }
+    grow(){ // prototype function
+        console.log('grow');
+    }
+}
