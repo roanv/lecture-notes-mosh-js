@@ -149,8 +149,18 @@ triangle.log();
 // but now triangle's constructor is also set to shape
 console.log(Triangle.prototype.constructor); // Shape
 // change this back to Triangle constructor
-Triangle.prototype.constructor = Triangle;
+Triangle.prototype.constructor = Triangle; // always do this after changing prototype inheritance
 
 // now Triangle is prototype of Shape but uses Triangle constructor
 console.log(Triangle.prototype); // Shape
 console.log(Triangle.prototype.constructor); // Triangle
+
+function Car (color){
+    this.color = color;
+}
+
+function Mazda (speed, color){
+    Shape.call(this,color); // calling super constructor
+    this.size = speed;
+}
+const hexagon = new Mazda(100,'blue');
