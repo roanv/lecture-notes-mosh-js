@@ -252,7 +252,7 @@ class Bean { // is actually a function
         console.log('growing');
     }
     static package (...beans){
-        return {...beans};
+        return [...beans];
     }
 }
 
