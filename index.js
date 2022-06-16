@@ -259,8 +259,8 @@ class Bean { // is actually a function
 const bean = new Bean(1);
 bean.flower();
 bean.grow();
-const package = Bean.package('bean 1','bean 2', 'bean 3');
-console.log(package);
+const beanPack = Bean.package('bean 1','bean 2', 'bean 3');
+console.log(beanPack);
 
 // HOISTING - functions are processed first by compiler
 sayHello(); // will run fine as sayHello is hoisted
@@ -289,7 +289,7 @@ const fill = bottle.fill;
 fill(); // "this" points to window (or global in node) object
 
 // strict mode changes behavior of "this"
-"use strict"; // i think this isn't working?
+// "use strict"; // i think this isn't working?
 fill(); // should return undefined (except it still returns window?)
 
 class Cup { // class bodies are executed in strict mode
@@ -401,3 +401,11 @@ const calc = new Calculator('blue', 5);
 calc.boot(); // computer function
 console.log(calc.color); // computer property
 calc.shutDown();
+
+
+// modules
+
+import {Shower} from './shower.js'; 
+
+const shower = new Shower(99);
+shower.printId();
