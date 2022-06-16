@@ -92,8 +92,40 @@ function ScopeCircle(radius) {
     })
 }
 
-function Square(){};
+function Square(){
+    this.move = function(){
+        this.log("off we go"); // call method on prototype (parent) from instance (child)
+    }
+};
 const square = new Square();
 
-Object.getPrototypeOf(square); // parent of circle (Square) ===
-Square.prototype; // Square prototype
+Object.getPrototypeOf(square); // square's prototype: "Square" // same as:
+Square.prototype; // The "Square" prototype
+
+Square.prototype.draw = function(){ // moving methods to prototype
+    console.log("|__|");
+    this.move(); // call method on instance (child) from prototype (parent)
+}
+
+Square.prototype.log = function(text){ 
+    console.log(text);
+}
+
+// prototype functions added after object instanced are also available to instance
+square.log('this method was defined after "square" was created');
+
+square.draw(); // js tries to find method on object -> prototype -> parent etc 
+
+Square.prototype.toString = function(){ // override parent method 
+    return 'square override';
+}
+
+console.log(square.toString());
+
+Object.keys(square); // only lists "move" as Object.keys only returns instance members
+
+for (let key in square); // lists instance + prototype members
+
+square.hasOwnProperty('move') // true // own === instance
+square.hasOwnProperty('draw') // false // draw is prototype member
+
