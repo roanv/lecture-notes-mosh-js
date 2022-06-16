@@ -87,7 +87,7 @@ function ScopeCircle(radius) {
             if (value > 0) _radius = value; // can perform validation
         },
         writeable: false, // sets object to read only
-        enumarable: false, // object will not show up when something containing it is iterated through
+        enumerable: false, // object will not show up when something containing it is iterated through
         configurable: false // object cannot be deleted
     })
 }
@@ -155,6 +155,10 @@ Triangle.prototype.constructor = Triangle; // always do this after changing prot
 console.log(Triangle.prototype); // Shape
 console.log(Triangle.prototype.constructor); // Triangle
 
+function extend (child, parent){
+    child.prototype = Object.create(parent.prototype); 
+    child.prototype.constructor = child;
+}
 
 // Calling super constructor
 function Car (color){
@@ -166,8 +170,37 @@ function Mazda (speed, color){
     this.speed = speed;
 }
 
-Mazda.prototype = Object.create(Car.prototype); 
-Mazda.prototype.constructor = Mazda;
+function Bmw (seats){
+    this.seats = seats; 
+    // color not initialized so instances wont have this property
+}
+
+extend(Mazda,Car);
+extend(Bmw,Car);
 
 const mazda = new Mazda(100,'blue');
-console.log(mazda.color);
+const bmw = new Bmw(5);
+
+Car.prototype.drive = () => console.log('zoom zoom zoom');
+
+mazda.drive(); // both now have access to drive
+bmw.drive();
+
+console.log(mazda.color); // mazda calls super constructor so color is initialized
+console.log(bmw.color); // undefined as color is not initialized
+
+// OVERRIDE
+Bmw.prototype.explode = function () {
+    Car.prototype.explode.call(this); // optional - call parent explode then do:
+    console.log('Crash Bang Boom'); 
+}
+// bmw prototype takes precedence as js walks up the inheritance chain
+Car.prototype.explode = () => console.log('kaboom');
+
+mazda.explode(); // Mazda follows Car implementation
+bmw.explode(); // Bmw follows overridden definition
+
+
+
+
+
