@@ -271,3 +271,34 @@ sayGoodbye(); // meaning it can only be called after declaration
 
 class Dinosaur {} // declaration not hoisted
 const Bird = class {} // expression not hoisted
+
+// THIS keyword
+
+const Bottle = function() {
+    this.fill = function () {console.log(this);}
+}
+
+const bottle = new Bottle(); 
+
+
+// Method call - calling a method on (or from) an object
+bottle.fill() // "this" points to bottle object
+
+// function call - calling standalone function
+const fill = bottle.fill;
+fill(); // "this" points to window (or global in node) object
+
+// strict mode changes behavior of "this"
+"use strict"; // i think this isn't working?
+fill(); // should return undefined (except it still returns window?)
+
+class Cup { // class bodies are executed in strict mode
+    empty(){
+        console.log(this);
+    }
+}
+
+const cup = new Cup();
+cup.empty();// "this" returns cup instance // method call
+const empty = cup.empty;
+empty(); // "this" returns undefined // function call in strict mode
