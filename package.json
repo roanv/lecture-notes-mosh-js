@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "webpack-init": "webpack init",
     "babel": "babel --presets env index.js -o build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,11 +20,9 @@
   },
   "homepage": "https://github.com/roanvonb/mosh-advanced-js-lecture#readme",
   "devDependencies": {
+    "@webpack-cli/generators": "^2.5.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0"
-  },
-  "dependencies": {
-    "babel-preset-react": "^6.24.1"
   }
 }
