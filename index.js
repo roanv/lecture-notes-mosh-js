@@ -302,3 +302,49 @@ const cup = new Cup();
 cup.empty();// "this" returns cup instance // method call
 const empty = cup.empty;
 empty(); // "this" returns undefined // function call in strict mode
+
+
+// PRIVATE MEMBERS USING SYMBOLS
+const _radius = Symbol(); // returns unique identifier
+class Glass {
+    constructor(radius){
+        this[_radius] = radius; // kind of hidden
+    }
+    printRadius () { console.log(this[_radius]);}
+}
+
+const glass = new Glass(2);
+glass.printRadius();
+
+// technically can still access this value manually
+const key = Object.getOwnPropertySymbols(glass)[0];
+console.log(glass[key]);
+
+// private property using weak maps
+const _id = new WeakMap(); // can hide this in module 
+const _move = new WeakMap(); // weak means its garbage collected if not referenced
+const _turn = new WeakMap();
+
+class Bowl {
+    constructor(id){
+        _id.set(this, id); // can only access if you have access to the weakmap
+        _move.set(this, function(){
+            console.log('moving', this); // "this" points to undefined
+        });
+        _turn.set(this, () => { // arrow function use the "this" value of containing function
+            // in this case the containing function (constructor) points "this" to the object
+            console.log('turning', this); // so "this" points to the bowl
+        });
+    }
+    printId(){
+        console.log(_id.get(this)); // accessing value from weakmap
+    }
+    goHome(){
+        _move.get(this)(); // accessing method from weakmap
+        _turn.get(this)();
+    }
+}
+
+const bowl = new Bowl(55);
+bowl.printId();
+bowl.goHome();
