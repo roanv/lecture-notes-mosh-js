@@ -348,3 +348,21 @@ class Bowl {
 const bowl = new Bowl(55);
 bowl.printId();
 bowl.goHome();
+
+// Getters and setters
+const _color = new WeakMap();
+class Candle {
+    constructor(color){
+        _color.set(this,color);
+    }
+    get color(){ // get keyword
+        return _color.get(this);
+    }
+    set color(value){
+        if (value) _color.set(this,value);
+    }
+}
+
+const candle = new Candle('blue');
+candle.color = 'orange' // set as if it was property
+console.log(candle.color); //accessed as if it was a property
