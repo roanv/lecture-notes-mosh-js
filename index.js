@@ -204,3 +204,38 @@ const cars = [mazda,bmw];
 for (let car of cars){
     car.explode(); // polymorphism
 }
+
+// MIXINS 
+const canEat = {
+    eat: function() {
+        this.hunger--;
+        console.log('eating');
+    }
+}
+
+const canWalk = {
+    walk: function (){
+        console.log('walking');
+    }
+}
+
+const canSwim = {
+    swim: function(){
+        console.log('swimming');
+    }
+}
+
+const human = Object.assign({},canEat,canWalk);
+human.eat();
+human.walk();
+
+function Fish () {}
+Object.assign(Fish.prototype,canEat,canSwim);
+
+const goldFish = new Fish();
+goldFish.eat();
+goldFish.swim();
+
+function mixin(target,...sources){ // rest operator turns rest of arguments into array
+    Object.assign(target,...sources) // spread operator spreads array into arguments
+}
