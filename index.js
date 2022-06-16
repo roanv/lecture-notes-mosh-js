@@ -366,3 +366,29 @@ class Candle {
 const candle = new Candle('blue');
 candle.color = 'orange' // set as if it was property
 console.log(candle.color); //accessed as if it was a property
+
+
+// Class Inheritance 
+class Computer{
+    constructor (color){
+        this.color = color;
+    }
+    boot(){
+        console.log('booting up');
+    }
+}
+
+class Calculator extends Computer { // extends sets prototype and resets constructor
+    constructor (color, size){ // constructors in child must call parent constructor
+        super(color)
+        this.size = size;
+    }
+
+    doMath(){
+        console.log('calculating pie')
+    }
+}
+
+const calc = new Calculator('blue', 5);
+calc.boot(); // computer function
+console.log(calc.color); // computer property
