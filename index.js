@@ -200,7 +200,7 @@ Car.prototype.explode = () => console.log('kaboom');
 mazda.explode(); // Mazda follows Car implementation
 bmw.explode(); // Bmw follows overridden definition
 
-
-
-
-
+const cars = [mazda,bmw];
+for (let car of cars){
+    car.explode(); // polymorphism
+}
