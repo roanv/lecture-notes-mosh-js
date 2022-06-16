@@ -243,12 +243,31 @@ function mixin(target,...sources){ // rest operator turns rest of arguments into
 
 // CLASSES - not real classes -> syntactic sugar over inheritance 
 // essentially cleaner syntax for prototypical inheritance 
-class Beans { // is actually a function
+class Bean { // is actually a function
     constructor(size){
         this.size = size;
-        this.move = function(){} // instance method
+        this.flower = () => console.log('flowering'); // sets function on instance
     }
-    grow(){ // prototype function
-        console.log('grow');
+    grow(){ // sets function on prototype // still instance method
+        console.log('growing');
+    }
+    static package (...beans){
+        return {...beans};
     }
 }
+
+const bean = new Bean(1);
+bean.flower();
+bean.grow();
+const package = Bean.package('bean 1','bean 2', 'bean 3');
+console.log(package);
+
+// HOISTING - functions are processed first by compiler
+sayHello(); // will run fine as sayHello is hoisted
+function sayHello() {} // declarations ARE hoisted
+
+const sayGoodbye = function(){}; // expressions are NOT hoisted
+sayGoodbye(); // meaning it can only be called after declaration
+
+class Dinosaur {} // declaration not hoisted
+const Bird = class {} // expression not hoisted
